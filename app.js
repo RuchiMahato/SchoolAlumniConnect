@@ -17,7 +17,7 @@ app.use(express.json({ extended: false }));
 
 // Enable CORS for all routes
 app.use(cors({
-  origin: 'https://alumniconnect-j8dmp99ex-ruchi-mahato-s-projects.vercel.app', // Replace with your frontend's URL
+  origin: 'https://alumniconnect-32hxb8hh2-ruchi-mahato-s-projects.vercel.app/', // Replace with your frontend's URL
   optionsSuccessStatus: 200,
 }));
 
