@@ -1,12 +1,13 @@
 // backend/app.js
-require('dotenv').config()
+require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const connectDB = require('./config/db');
 const cors = require('cors');
 const auth = require('./routes/auth');
 const usersRoutes = require('./routes/users');
-const app = express();
 const alumniRoutes = require('./routes/alumni');
+const app = express();
 
 // Connect Database
 connectDB();
@@ -21,12 +22,20 @@ app.use(cors({
 }));
 
 // Define Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/users', require('./routes/users'));
-app.use('/api/alumni', require('./routes/alumni'));
+app.use('/api/auth', auth);
+app.use('/api/users', usersRoutes);
+app.use('/api/alumni', alumniRoutes);
 
 // Serve static files from the uploads directory
 app.use('/uploads', express.static('uploads'));
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'frontend', 'build')));
+
+// The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
+});
 
 const PORT = process.env.PORT || 5000;
 
