@@ -1,7 +1,9 @@
 // routes/auth.js
+// routes/auth.js
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
+const authMiddleware = require('../middleware/authMiddleware');
 
 // @route   POST /api/auth/register
 // @desc    Register new user
@@ -13,4 +15,10 @@ router.post('/register', authController.register);
 // @access  Public
 router.post('/login', authController.login);
 
+// @route   GET /api/auth/me
+// @desc    Get logged in user
+// @access  Private
+router.get('/me', authMiddleware, authController.getMe);
+
 module.exports = router;
+
