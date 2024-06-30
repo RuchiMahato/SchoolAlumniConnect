@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
-const path = require('path'); // Import the 'path' module
+
 const auth = require('./routes/auth');
 const usersRoutes = require('./routes/users');
 const alumniRoutes = require('./routes/alumni');
@@ -52,13 +52,7 @@ app.use('/api/admin', adminRoutes);
 // Serve static files from the uploads directory
 app.use('/uploads', express.static('uploads'));
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'frontend', 'build')));
 
-// The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
-});
 
 const PORT = process.env.PORT || 5000;
 
