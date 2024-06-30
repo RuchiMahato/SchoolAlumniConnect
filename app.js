@@ -25,7 +25,7 @@ app.use(express.json({ extended: false }));
 
 // Allowed origins for CORS
 const allowedOrigins = [
-  'https://alumniconnect-32hxb8hh2-ruchi-mahato-s-projects.vercel.app', // Production URL
+  'https://alumniconnect-theta.vercel.app/', // Production URL
   'http://localhost:5173' // Development URL
 ];
 
