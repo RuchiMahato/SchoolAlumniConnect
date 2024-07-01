@@ -11,7 +11,7 @@ const AlumniSchema = new mongoose.Schema({
   profession: String,
   batch: Number,
   linkedinUrl: String,
-  gmailAccount: String,
+  emailId: String,
   profilePicture: String
 });
 

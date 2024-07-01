@@ -33,7 +33,7 @@ const UserSchema = new mongoose.Schema({
   linkedinUrl: {
     type: String
   },
-  gmailAccount: {
+  emailId: {
     type: String
   }
 });

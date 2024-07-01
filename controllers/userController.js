@@ -15,9 +15,9 @@ exports.getUserProfile = async (req, res) => {
 };
 
 exports.updateUserProfile = async (req, res) => {
-  const { name, profession, batch, linkedinUrl, gmailAccount } = req.body;
+  const { name, profession, batch, linkedinUrl, emailId } = req.body;
 
-  const profileFields = { name, profession, batch, linkedinUrl, gmailAccount };
+  const profileFields = { name, profession, batch, linkedinUrl, emailId };
 
   if (req.file) {
     profileFields.profilePicture = `/uploads/${req.file.filename}`;
