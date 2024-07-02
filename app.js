@@ -1,4 +1,5 @@
 require('dotenv').config();
+process.env.NODE_CONFIG_STRICT_MODE = true;
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
