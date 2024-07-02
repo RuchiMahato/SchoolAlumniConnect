@@ -26,22 +26,8 @@ exports.adminRegister = async (req, res) => {
 
     await admin.save();
 
-    const payload = {
-      admin: {
-        id: admin.id,
-        role: 'admin'
-      }
-    };
-
-    jwt.sign(
-      payload,
-      jwtSecret,
-      { expiresIn: '1h' },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
+    // Send a success message instead of a token
+    res.status(201).json({ msg: 'Admin registered successfully' });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ msg: 'Server error' });
@@ -113,7 +99,7 @@ exports.getEvents = async (req, res) => {
 exports.deleteEvent = async (req, res) => {
   try {
     const eventId = req.params.id;
-    console.log('Attempting to delete event with ID:', eventId); // Add this line
+    console.log('Attempting to delete event with ID:', eventId);
 
     if (!eventId) {
       return res.status(400).json({ msg: 'Event ID is required' });
@@ -131,6 +117,5 @@ exports.deleteEvent = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
-
 
 module.exports = exports;
