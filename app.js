@@ -5,6 +5,8 @@ const connectDB = require('./config/db');
 const cors = require('cors');
 const config = require('config');
 
+const jwtSecret = process.env.JWT_SECRET || config.get('jwtSecret');
+
 const auth = require('./routes/auth');
 const usersRoutes = require('./routes/users');
 const alumniRoutes = require('./routes/alumni');
@@ -13,8 +15,10 @@ const adminRoutes = require('./routes/admin');
 
 const app = express();
 
+app.set('jwtSecret', jwtSecret);
 // Connect Database
 connectDB();
+
 
 // Middleware to log requests
 app.use((req, res, next) => {

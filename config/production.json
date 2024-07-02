@@ -1,0 +1,5 @@
+{
+    "port": 5000,
+    "mongoURI": "mongodb+srv://ruchimahato:y9yljAROVUqDuvsd@school.cak76la.mongodb.net/?retryWrites=true&w=majority&appName=school",
+    "jwtSecret": "yoursecrettoken"
+  }
