@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
+const config = require('config');
 
 const auth = require('./routes/auth');
 const usersRoutes = require('./routes/users');
@@ -49,11 +50,11 @@ app.use('/api/users', usersRoutes);
 app.use('/api/alumni', alumniRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/admin', adminRoutes);
+
 // Serve static files from the uploads directory
 app.use('/uploads', express.static('uploads'));
 
-
-
-const PORT = process.env.PORT || 5000;
+// Use environment variable for port, fallback to config if not set
+const PORT = process.env.PORT || config.get('port') || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
