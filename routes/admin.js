@@ -1,5 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const { check } = require('express-validator');
+const adminMiddleware = require('../middleware/adminMiddleware');
+const adminController = require('../controllers/adminController');
+
 const { 
   adminLogin, 
   createEvent, 
@@ -8,10 +12,21 @@ const {
   getAdminProfile,
   deleteEvent
 } = require('../controllers/adminController');
-const adminMiddleware = require('../middleware/adminMiddleware');
 
-router.post('/register', adminRegister);
+// Admin registration route with input validation
+
+router.post(
+  '/register',
+  [
+    check('name', 'Name is required').not().isEmpty(),
+    check('email', 'Please include a valid email').isEmail(),
+    check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 })
+  ],
+  adminController.adminRegister
+);
+
 router.post('/login', adminLogin);
+router.get('/me', adminMiddleware, getAdminProfile);
 router.post('/events', adminMiddleware, createEvent);
 router.get('/events', adminMiddleware, getEvents);
 router.delete('/events/:id', adminMiddleware, deleteEvent);
@@ -25,6 +40,5 @@ router.get('/all', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-router.get('/me', adminMiddleware, getAdminProfile);
 
 module.exports = router;
