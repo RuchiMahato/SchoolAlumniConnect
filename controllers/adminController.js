@@ -265,6 +265,24 @@ exports.deleteEvent = async (req, res) => {
   }
 };
 
+// controllers/adminController.js
+exports.verifyAlumni = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const alumni = await Alumni.findByIdAndUpdate(id, { isVerified: true }, { new: true });
+
+    if (!alumni) {
+      return res.status(404).json({ msg: 'Alumni not found' });
+    }
+
+    res.json(alumni);
+  } catch (err) {
+    console.error('Error verifying alumni:', err);
+    res.status(500).send('Server Error');
+  }
+};
+
+
 module.exports = exports;
 
 // Add other admin-related controller functions here (createEvent, getEvents, deleteEvent)

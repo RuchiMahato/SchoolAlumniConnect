@@ -1,6 +1,6 @@
 // routes/events.js
 // routes/events.js
-const express = require('express');
+/*const express = require('express');
 const router = express.Router();
 const Event = require('../models/Event');
 const adminMiddleware = require('../middleware/adminMiddleware');
@@ -29,4 +29,22 @@ router.get('/', async (req, res) => {
   }
 });
 
+module.exports = router;*/
+
+const express = require('express');
+const router = express.Router();
+const Event = require('../models/Event');
+const adminMiddleware = require('../middleware/adminMiddleware');
+const { createEvent, getEvents, updateEvent } = require('../controllers/eventController');
+
+// Route to create an event (admin only)
+router.post('/', adminMiddleware, createEvent);
+
+// Route to get all events (open to all users)
+router.get('/', getEvents);
+
+// Route to update an event (admin only)
+router.put('/:id', adminMiddleware, updateEvent);
+
 module.exports = router;
+

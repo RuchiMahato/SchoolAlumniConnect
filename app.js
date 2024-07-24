@@ -244,6 +244,7 @@ module.exports = {
   adminJwtSecret
 };*/
 
+//app.js
 require('dotenv').config();
 process.env.NODE_CONFIG_STRICT_MODE = true;
 const express = require('express');
@@ -335,6 +336,21 @@ app.use('/uploads', (req, res, next) => {
   console.log('Image requested:', req.url);
   next();
 }, express.static('uploads'));
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.put('/admin/alumni/verify/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const alumni = await Alumni.findByIdAndUpdate(id, { verified: true }, { new: true });
+    if (!alumni) return res.status(404).json({ message: 'Alumni not found' });
+
+    res.json(alumni);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err });
+  }
+});
+
 
 // Use environment variable for port, fallback to config if not set
 const PORT = process.env.PORT || config.get('port') || 5000;
