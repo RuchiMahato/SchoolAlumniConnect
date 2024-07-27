@@ -129,6 +129,7 @@ const Admin = require('../models/Admin');
 const Event = require('../models/Event');
 const adminJwtSecret = config.get('adminJwtSecret');
 const { validationResult } = require('express-validator');
+const Alumni = require('../models/Alumni');
 
 exports.adminRegister = async (req, res) => {
   const errors = validationResult(req);
@@ -269,7 +270,7 @@ exports.deleteEvent = async (req, res) => {
 exports.verifyAlumni = async (req, res) => {
   try {
     const { id } = req.params;
-    const alumni = await Alumni.findByIdAndUpdate(id, { isVerified: true }, { new: true });
+    const alumni = await Alumni.findByIdAndUpdate(id, { verified: true }, { new: true });
 
     if (!alumni) {
       return res.status(404).json({ msg: 'Alumni not found' });

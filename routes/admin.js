@@ -60,7 +60,8 @@ const {
   adminRegister, 
   getAdminProfile,
   deleteEvent,
-  updateEvent // Added for completeness
+  updateEvent,
+  verifyAlumni // Added for completeness
 } = require('../controllers/adminController');
 
 // Admin registration route with input validation
@@ -123,7 +124,7 @@ router.delete('/alumni/:id', adminMiddleware, async (req, res) => {
   }
 });
 
-// routes/admin.js
+
 router.put('/alumni/verify/:id', adminMiddleware, async (req, res) => {
   try {
     const { id } = req.params;

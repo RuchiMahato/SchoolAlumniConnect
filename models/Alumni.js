@@ -12,7 +12,11 @@ const AlumniSchema = new mongoose.Schema({
   batch: Number,
   linkedinUrl: String,
   emailId: String,
-  profilePicture: String
+  profilePicture: String,
+  verified: {
+    type: Boolean,
+    default: false
+  }
 });
 
 module.exports = mongoose.model('Alumni', AlumniSchema);
